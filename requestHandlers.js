@@ -1,3 +1,6 @@
+const fs = require('fs');
+const main_view = fs.readFileSync('./main.html', 'utf-8');
+
 const mariadb = require('./database/connect/mariadb');
 
 function main(response) {
@@ -8,7 +11,7 @@ function main(response) {
         });
 
         response.writeHead(200, {'Content-Type': 'text/plain'});
-        response.write('Main Page');
+        response.write(main_view);
         response.end();
 }
 
@@ -20,8 +23,40 @@ function login(response) {
     response.end();
 }
 
+function redRacket(response) {
+fs.readFile('./img/redRacket.png', function (error, data) {
+
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write(data);
+    response.end();
+    });
+}
+
+function blueRacket(response) {
+    fs.readFile('./img/redRacket.png', function (error, data) {
+    
+        response.writeHead(200, {'Content-Type': 'text/plain'});
+        response.write(data);
+        response.end();
+        });
+    }
+
+function blackRacket(response) {
+fs.readFile('./img/redRacket.png', function (error, data) {
+
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write(data);
+    response.end();
+    });
+}
+
 let handle = {};
 handle['/'] = main;
-handle['/login'] = login;
+
+
+/* 이미지 경로 */
+handle['/img/redRacket.png'] = redRacket;
+handle['/img/blueRacket.png'] = blueRacket;
+handle['/img/blackRacket.png'] = blackRacket;
 
 exports.handle = handle;
